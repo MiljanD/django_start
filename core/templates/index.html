@@ -1,1 +1,10 @@
-<p>This is my index.html</p>
+
+<div>
+    {% for product, details in all.items %}
+        <h2>{{ product }}</h2>
+            <ul>
+               <li><p>${{ details.price }}</p></li>
+               <li><p>{{ details.description }}</p></li>
+            </ul>
+    {% endfor %}
+</div>
