@@ -1,10 +1,15 @@
 
 <div>
-    {% for product, details in all.items %}
-        <h2>{{ product }}</h2>
+    <form method="POST" action="/logout/">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+    </form>
+
+    {% for product in all %}
+        <h2>{{ product.title }}</h2>
             <ul>
-               <li><p>${{ details.price }}</p></li>
-               <li><p>{{ details.description }}</p></li>
+               <li><p>${{ product.price }}</p></li>
+               <li><p>{{ product.description }}</p></li>
             </ul>
     {% endfor %}
 </div>
