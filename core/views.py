@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseNotAllowed
 from django.shortcuts import render
 
 products = {
@@ -48,3 +48,20 @@ def product(request, name):
 
 def user(request, uid):
     return HttpResponse(f"User id: {uid}")
+
+
+def create_product(request):
+    return render(request, "product_create.html")
+
+def save_product(request):
+    if request.method != "POST":
+        return HttpResponseNotAllowed("This method is not allowed")
+
+    title = request.POST.get("title")
+    price = request.POST.get("price")
+    description = request.POST.get("description")
+
+    if not title or not price or not description:
+        return HttpResponse("All fields are mandatory.", status=400) # 400 -->> Bad request
+
+    return HttpResponse(f"This is {title}, {price}, {description}", status=201)

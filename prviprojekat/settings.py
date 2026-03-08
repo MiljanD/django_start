@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'prviprojekat.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_projekat',
+        'USER': 'root',
+        'PASSWORD': 'dm3004^mk2606',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
