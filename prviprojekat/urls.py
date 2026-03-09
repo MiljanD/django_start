@@ -33,6 +33,7 @@ urlpatterns = [
     path('korisnik/<int:uid>', user),
     path('admin/proizvod/create', create_product),
     path('admin/proizvod/save', save_product),
-    path('login/', auth_views.LoginView.as_view(template_name='auth/login.html')),
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'))
+    path('login/', auth_views.LoginView.as_view(template_name='auth/login.html', next_page='/'), name='login_page'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('admin/', admin.site.urls)
 ]

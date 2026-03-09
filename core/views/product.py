@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseNotAllowed
 from django.shortcuts import render
 from ..models import Product
@@ -11,7 +12,7 @@ def product(request, name):
     except Product.DoesNotExist:
         return HttpResponseNotFound("Product don't exists", status=400)
 
-
+@login_required
 def create_product(request):
     return render(request, "product_create.html")
 

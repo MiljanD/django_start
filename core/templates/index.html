@@ -1,9 +1,16 @@
 
 <div>
-    <form method="POST" action="/logout/">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-    </form>
+    {% if user.is_authenticated %}
+        <p>Hello {{ user.username }}</p>
+        <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <button type="submit"><a href="{% url 'login_page' %}">Login</a></button>
+    {% endif %}
+
+
 
     {% for product in all %}
         <h2>{{ product.title }}</h2>
