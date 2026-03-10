@@ -15,8 +15,9 @@
     {% for product in all %}
         <h2>{{ product.title }}</h2>
             <ul>
-               <li><p>${{ product.price }}</p></li>
+                <li><p>${{ product.promoted_price|default:product.price }}</p></li>
                <li><p>{{ product.description }}</p></li>
+               <li><a href="{% url 'product_page' product.title %}"><img src="{{ product.image.url }}" width="200px"></a></li>
             </ul>
     {% endfor %}
 </div>

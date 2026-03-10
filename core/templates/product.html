@@ -1,6 +1,9 @@
 
 <h2>{{ product.title }}</h2>
 <ul>
-    <li><p>Price: {{ product.price }}</p></li>
+
+    <li><p>Price: {{ product.promoted_price|default:product.price }}</p></li>
+
     <li><p>Description: {{ product.description }}</p></li>
+    <li><img src="{{ product.image.url }}", width="250px"></li>
 </ul>
