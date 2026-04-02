@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Categories
+from .models import Product, Categories, ProductImage
 from django.utils.html import format_html
 
 
@@ -18,5 +18,6 @@ class ProductAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Categories)
+admin.site.register(ProductImage)
 
 

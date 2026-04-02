@@ -1,9 +1,18 @@
+{% extends "layout.html" %}
 
-<h2>{{ product.title }}</h2>
-<ul>
+{% block title %}{{ product.title }}{% endblock %}
 
-    <li><p>Price: {{ product.promoted_price|default:product.price }}</p></li>
+{% block content %}
+    <h2>{{ product.title }}</h2>
+    <ul>
 
-    <li><p>Description: {{ product.description }}</p></li>
-    <li><img src="{{ product.image.url }}", width="250px"></li>
-</ul>
+        <li><p>Price: {{ product.promoted_price|default:product.price }}</p></li>
+
+        <li><p>Description: {{ product.description }}</p></li>
+
+        <li><img src="{{ product.image.url }}", width="250px"></li>
+        {% for img in product.images.all %}
+            <li><img src="{{ img.image.url }}", width="250px"></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

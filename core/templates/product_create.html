@@ -1,9 +1,12 @@
+{% extends "layout.html" %}
 
-
-<form method="POST" action="/admin/proizvod/save">
-    {% csrf_token %}
-    <input name="title" type="text" placeholder="Unesite ime proizvoda">
-    <input name="price" type="text" placeholder="Unesite cenu proizvoda">
-    <textarea name="description" placeholder="Unesite opis proizvoda"></textarea>
-    <button>Napravi proizvod</button>
-</form>
+{% block title %}Create a product{% endblock %}
+{% block content %}
+    <form method="POST" action="/admin/proizvod/save">
+        {% csrf_token %}
+        <input name="title" type="text" placeholder="Unesite ime proizvoda">
+        <input name="price" type="text" placeholder="Unesite cenu proizvoda">
+        <textarea name="description" placeholder="Unesite opis proizvoda"></textarea>
+        <button>Napravi proizvod</button>
+    </form>
+{% endblock %}
