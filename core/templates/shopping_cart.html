@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shopping Cart
+{% endblock %}
+
+{% block content %}
+
+    {% if items %}
+        {% for item in items %}
+            <div>
+                <h2>{{ item.product.title }}</h2>
+                {% if item.product.promoted_price %}
+                    <p>Promoted Price: {{ item.product.promoted_price }}</p>
+                {% else %}
+                    <p>Price: {{ item.product.price }}</p>
+                {% endif %}
+                <p>Order quantity: {{ item.quantity }}</p>
+                <p>Total Price: {{ item.total_price }}</p>
+                <button><a href="{% url 'delete_product' item.product.id %}">Delete Product</a></button>
+            </div>
+            <br>
+        {% endfor %}
+    {% endif %}
+    <div>
+        <h1>Total cart value: {{ total_cart }}</h1>
+        <button><a href="{% url 'create_order' %}">Proceed to Order</a></button>
+    </div>
+    <br>
+
+
+{% endblock %}

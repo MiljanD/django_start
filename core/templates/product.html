@@ -15,4 +15,9 @@
             <li><img src="{{ img.image.url }}", width="250px"></li>
         {% endfor %}
     </ul>
+    {% if user.is_authenticated  %}
+        <button><a href="{% url 'add_to_cart' product_id=product.id %}">Add to cart</a></button>
+    {% else %}
+        <button><a href="{% url 'login_page' %}?next={{ request.path }}">Add to cart</a></button>
+    {% endif %}
 {% endblock %}

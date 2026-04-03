@@ -31,8 +31,11 @@ from core.views.product import save_product
 
 from django.contrib.auth import views as auth_views
 
+from core.views.shopping_cart import add_to_cart, show_cart, delete_from_cart
+from core.views.orders import order_creation, save_order, show_user_orders
+
 urlpatterns = [
-    path('', home),
+    path('', home, name="home"),
     path('about/', about),
     path('proizvod/<str:name>', product, name='product_page'),
     path('korisnik/<int:uid>', user),
@@ -43,5 +46,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT
-    })
+    }),
+
+    path('cart/add/<int:product_id>', add_to_cart, name='add_to_cart'),
+    path('cart/show', show_cart, name='cart_details'),
+    path('cart/delete_product/<int:product_id>', delete_from_cart, name='delete_product'),
+    path('orders/create_order', order_creation, name='create_order'),
+    path('orders/save_order', save_order, name='save_order'),
+    path('orders/user_orders', show_user_orders, name='user_orders')
 ]

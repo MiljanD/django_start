@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Create a order{% endblock %}>
+{% block content %}
+    <br>
+    <form method="POST" action="/orders/save_order">
+        {% csrf_token %}
+        <label>User name: </label><br>
+        <input name="name" type="text" value="{{ user.username }}"><br>
+        <label>Country: </label><br>
+        <input name="country" type="text" placeholder="Country"><br>
+        <label>City: </label><br>
+        <input name="city" type="text" placeholder="City"><br>
+        <label>Postal code: </label><br>
+        <input name="postal" type="text" placeholder="Postal code"><br>
+        <label>Phone number: </label><br>
+        <input name="phone" type="text" placeholder="Phone number"><br>
+        <br>
+        <button type="submit">Order now</button>
+
+    </form>
+    <br>
+{% endblock %}

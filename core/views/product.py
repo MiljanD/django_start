@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseNotAllowed
 from django.shortcuts import render
-from ..models import Product
-
+from ..models import Product, Orders
 
 
 def product(request, name):
@@ -32,3 +31,6 @@ def save_product(request):
     new_product.save()
 
     return HttpResponse(f"This is {title}, {price}, {description}", status=201)
+
+
+
