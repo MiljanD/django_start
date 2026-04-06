@@ -5,28 +5,47 @@
 {% endblock %}
 
 {% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Shopping Cart</h2>
 
     {% if items %}
-        {% for item in items %}
-            <div>
-                <h2>{{ item.product.title }}</h2>
-                {% if item.product.promoted_price %}
-                    <p>Promoted Price: {{ item.product.promoted_price }}</p>
-                {% else %}
-                    <p>Price: {{ item.product.price }}</p>
-                {% endif %}
-                <p>Order quantity: {{ item.quantity }}</p>
-                <p>Total Price: {{ item.total_price }}</p>
-                <button><a href="{% url 'delete_product' item.product.id %}">Delete Product</a></button>
+        <div class="row">
+            {% for item in items %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.product.title }}</h5>
+                        {% if item.product.promoted_price %}
+                            <p class="card-text">
+                                <span class="badge bg-success">Promoted Price: ${{ item.product.promoted_price }}</span>
+                            </p>
+                        {% else %}
+                            <p class="card-text">
+                                <span class="badge bg-secondary">Price: ${{ item.product.price }}</span>
+                            </p>
+                        {% endif %}
+                        <p class="card-text">Order quantity: {{ item.quantity }}</p>
+                        <p class="card-text fw-bold">Total Price: ${{ item.total_price }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'delete_product' item.product.id %}" class="btn btn-outline-danger btn-sm">
+                            Delete Product
+                        </a>
+                    </div>
+                </div>
             </div>
-            <br>
-        {% endfor %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">Your cart is empty.</p>
     {% endif %}
-    <div>
-        <h1>Total cart value: {{ total_cart }}</h1>
-        <button><a href="{% url 'create_order' %}">Proceed to Order</a></button>
+
+    <div class="card mt-4 shadow-sm">
+        <div class="card-body text-center">
+            <h4>Total number of cart items: {{ items|length }}</h4>
+            <h4>Total cart value: ${{ total_cart }}</h4>
+            <a href="{% url 'create_order' %}" class="btn btn-primary mt-3">Proceed to Order</a>
+        </div>
     </div>
-    <br>
-
-
+</div>
 {% endblock %}

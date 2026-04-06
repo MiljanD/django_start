@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middlewares.cart_check_middleware.CartCheckMiddleware'
 ]
 
 ROOT_URLCONF = 'prviprojekat.urls'

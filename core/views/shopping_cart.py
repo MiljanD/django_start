@@ -1,6 +1,6 @@
 
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, Http404
+from django.shortcuts import render, redirect, get_object_or_404
 from ..models import Product
 from django.contrib.auth.decorators import login_required
 
@@ -8,6 +8,9 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url="login_page")
 def add_to_cart(request, product_id):
     cart = request.session.get("shopping_cart", {})
+
+    get_object_or_404(Product, id=product_id)
+
     product_id = str(product_id)
     if product_id in cart:
         cart[product_id] += 1
@@ -18,6 +21,7 @@ def add_to_cart(request, product_id):
     request.session.modified = True
 
     return redirect("cart_details")
+
 
 
 @login_required(login_url="login_page")

@@ -3,28 +3,45 @@
 {% block title %}User orders{% endblock %}
 
 {% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Orders for {{ user.username }}</h1>
 
-    <h1>Ordered from account username: {{ user.username}}</h1>
-    <ul>
+    <div class="accordion" id="ordersAccordion">
         {% for order in orders %}
-            <li>
-                <h2>Customer: {{ order.order.name }}</h2>
-                <h3>Delivery Details:</h3>
-                    <p>Country: {{ order.order.country }}</p>
-                    <p>City: {{ order.order.city }}</p>
-                    <p>Postal code: {{ order.order.postal_code }}</p>
-                    <p>Phone Number: {{ order.order.phone_number }}</p>
-                <h3>Ordered items:</h3>
-                {% for item in order.items %}
-                    <p>Product name: {{ item.item }}</p>
-                    <p>Ordered quantity: {{ item.quantity }}</p>
-                    <p>Total price: {{ item.price }}</p>
-                {% endfor %}
-            </li>
-            <br>
-        {% endfor %}
-    </ul>
-    <button><a href="{% url 'home' %}">Return to Home</a></button>
-    <br>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                    Order by {{ order.order.name }} ({{ order.order.city }}, {{ order.order.country }})
+                </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#ordersAccordion">
+                <div class="accordion-body">
+                    <h5>Delivery Details:</h5>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item">Country: {{ order.order.country }}</li>
+                        <li class="list-group-item">City: {{ order.order.city }}</li>
+                        <li class="list-group-item">Postal code: {{ order.order.postal_code }}</li>
+                        <li class="list-group-item">Phone Number: {{ order.order.phone_number }}</li>
+                    </ul>
 
+                    <h5>Ordered items:</h5>
+                    <div class="row">
+                        {% for item in order.items %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <p class="card-text"><strong>Product:</strong> {{ item.item }}</p>
+                                    <p class="card-text">Quantity: {{ item.quantity }}</p>
+                                    <p class="card-text fw-bold">Total price: ${{ item.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}

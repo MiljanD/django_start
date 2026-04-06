@@ -5,26 +5,27 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        {% if user.is_authenticated %}
-            <p>Hello {{ user.username }}</p>
-            <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-            </form>
-        {% else %}
-            <button type="submit"><a href="{% url 'login_page' %}">Login</a></button>
-        {% endif %}
-
-
-
+<div class="container mt-4">
+    <div class="row">
         {% for product in all %}
-            <h2>{{ product.title }}</h2>
-                <ul>
-                    <li><p>${{ product.promoted_price|default:product.price }}</p></li>
-                   <li><p>{{ product.description }}</p></li>
-                   <li><a href="{% url 'product_page' product.title %}"><img src="{{ product.image.url }}" width="200px"></a></li>
-                </ul>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <a href="{% url 'product_page' product.title %}">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">
+                        Cena: ${{ product.promoted_price|default:product.price }}
+                    </p>
+                    <p class="card-text text-muted">{{ product.description }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{% url 'product_page' product.title %}" class="btn btn-primary">Detalji</a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}

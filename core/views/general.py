@@ -5,7 +5,7 @@ from ..models import Product
 
 
 def home(request):
-    return render(request, "index.html", {"all": Product.objects.order_by("-id")[:9]})
+    return render(request, "index.html", {"all": Product.objects.order_by("-id")})
 
 
 def about(request):

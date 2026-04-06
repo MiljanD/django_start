@@ -3,11 +3,15 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseNotAllow
 from django.shortcuts import render, redirect
 from ..models import Product, Orders, OrderItems
 from django.contrib.auth.decorators import login_required
+from core.forms.order_form import OrderForm
 
 
 @login_required(login_url="login_page")
 def order_creation(request):
-    return render(request, "create_order.html")
+    order_form = OrderForm(initial={
+        "name": request.user.get_full_name()
+    })
+    return render(request, "create_order.html", {"order_form": order_form})
 
 @login_required(login_url="login_page")
 def save_order(request):
@@ -15,18 +19,20 @@ def save_order(request):
         return HttpResponseNotAllowed("This method is not allowed.")
 
     cart = request.session.get("shopping_cart", {})
-    if not cart:
-        return redirect("cart_details")
+
+    order_form = OrderForm(request.POST)
+    if not order_form.is_valid():
+        return redirect("create_order")
+
 
     user = request.user
     name = request.POST.get("name")
     country = request.POST.get("country")
     city = request.POST.get("city")
-    postal_code = request.POST.get("postal")
-    phone_number = request.POST.get("phone")
+    postal_code = request.POST.get("postal_code")
+    phone_number = request.POST.get("phone_number")
 
-    if not name or not country or not city or not postal_code or not phone_number:
-        return HttpResponse("All fields are mandatory.", status=400)
+
 
     new_order = Orders.objects.create(user=user, name=name, country=country, city=city, postal_code=postal_code, phone_number=phone_number)
 

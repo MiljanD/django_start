@@ -1,12 +1,29 @@
 {% extends "layout.html" %}
 
 {% block title %}Create a product{% endblock %}
+
 {% block content %}
-    <form method="POST" action="/admin/proizvod/save">
+<div class="container mt-4">
+    <h2 class="mb-4">Create a new product</h2>
+    <form method="POST" action="/admin/proizvod/save" class="card p-4 shadow-sm">
         {% csrf_token %}
-        <input name="title" type="text" placeholder="Unesite ime proizvoda">
-        <input name="price" type="text" placeholder="Unesite cenu proizvoda">
-        <textarea name="description" placeholder="Unesite opis proizvoda"></textarea>
-        <button>Napravi proizvod</button>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Product name</label>
+            <input id="title" name="title" type="text" class="form-control" placeholder="Unesite ime proizvoda">
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input id="price" name="price" type="text" class="form-control" placeholder="Unesite cenu proizvoda">
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Unesite opis proizvoda"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Napravi proizvod</button>
     </form>
+</div>
 {% endblock %}

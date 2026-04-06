@@ -3,21 +3,37 @@
 {% block title %}{{ product.title }}{% endblock %}
 
 {% block content %}
-    <h2>{{ product.title }}</h2>
-    <ul>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="row g-0">
+            <div class="col-md-5">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="{{ product.title }}">
+                {% for img in product.images.all %}
+                    <img src="{{ img.image.url }}" class="img-fluid mt-2 rounded" alt="{{ product.title }}">
+                {% endfor %}
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    <h2 class="card-title">{{ product.title }}</h2>
+                    <h5>
+                        <span class="badge bg-success">
+                            ${{ product.promoted_price|default:product.price }}
+                        </span>
+                    </h5>
+                    <p class="card-text mt-3">{{ product.description }}</p>
 
-        <li><p>Price: {{ product.promoted_price|default:product.price }}</p></li>
-
-        <li><p>Description: {{ product.description }}</p></li>
-
-        <li><img src="{{ product.image.url }}", width="250px"></li>
-        {% for img in product.images.all %}
-            <li><img src="{{ img.image.url }}", width="250px"></li>
-        {% endfor %}
-    </ul>
-    {% if user.is_authenticated  %}
-        <button><a href="{% url 'add_to_cart' product_id=product.id %}">Add to cart</a></button>
-    {% else %}
-        <button><a href="{% url 'login_page' %}?next={{ request.path }}">Add to cart</a></button>
-    {% endif %}
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'add_to_cart' product_id=product.id %}" class="btn btn-primary mt-3">
+                            Add to cart
+                        </a>
+                    {% else %}
+                        <a href="{% url 'login_page' %}?next={{ request.path }}" class="btn btn-outline-primary mt-3">
+                            Add to cart
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
